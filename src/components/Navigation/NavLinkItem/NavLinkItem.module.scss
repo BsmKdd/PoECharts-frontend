@@ -1,0 +1,17 @@
+@use '../../../styles/_colors.scss' as *;
+
+.navLinkItem {
+  margin: 0 1rem;
+  padding: 1rem;
+
+  border: 1px solid $color-dark-1;
+  border-radius: 4px;
+  text-decoration: none;
+  color: $color-gray-1;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $color-gray-1;
+    color: $color-dark-3;
+  }
+}

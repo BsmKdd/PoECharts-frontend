@@ -4,21 +4,15 @@
   "overrides": [
     {
       "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
-      "options": {
-        "tabWidth": 4,
-        "printWidth": 100
-      }
+      "options": { "tabWidth": 4, "printWidth": 100 }
     },
     {
       "files": ["*.json", "*.yml"],
-      "options": {
-        "tabWidth": 2,
-        "useTabs": true
-      }
+      "options": { "tabWidth": 2, "useTabs": true }
     },
     {
       "files": ["*.scssm", "*.scss", "*.css"],
-      "options": {}
+      "options": { "semi": true, "cssDeclarationSorterOrder": "concentric-css" }
     }
   ]
 }
