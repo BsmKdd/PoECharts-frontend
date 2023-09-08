@@ -1,12 +1,29 @@
 @use '../../../styles/breakpoints';
 
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
 .navLinks {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin: auto 0;
-  padding: 0;
   list-style: none;
+
+  align-items: center;
+}
+
+.logo {
+  width: 54px;
+  height: 54px;
+
+  img {
+    width: 54px;
+    height: 54px;
+  }
 }

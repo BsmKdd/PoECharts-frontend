@@ -1,13 +1,23 @@
+@use './colors' as *;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  background: #171717;
+  color-scheme: light dark;
+  background: $color-darkest;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+main {
+  width: 90%;
+  max-width: 60rem;
+  margin: 6rem auto 0 auto;
+  color: $color-light-3;
 }

@@ -1,6 +1,8 @@
 @use '../../../styles/_colors.scss' as *;
 
 .navLinkItem {
+  box-sizing: border-box;
+
   margin: 0 1rem;
   padding: 1rem;
 
@@ -11,7 +13,6 @@
   font-weight: 600;
 
   &:hover {
-    background-color: $color-gray-1;
-    color: $color-dark-3;
+    background-color: #bdbdbd11;
   }
 }
