@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Navigation from './components/Navigation/Navigation'
-import Playerbase from './pages/Playerbase'
+import Playerbase from './pages/Playerbase/Playerbase'
 import Economy from './pages/Economy'
 
 function App() {

@@ -1,0 +1,7 @@
+@use '../../styles/colors' as *;
+
+.chartContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/1;
+}
