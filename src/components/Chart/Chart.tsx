@@ -45,9 +45,9 @@ interface Props {
 }
 
 const ChartContainer: React.FC<Props> = ({
+    chartType,
     chartData,
     chartOptions,
-    chartType,
 }: Props): JSX.Element => {
     let chart: JSX.Element
 
