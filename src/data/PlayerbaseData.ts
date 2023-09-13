@@ -1,12 +1,27 @@
+import { convertDate } from '../utils/dataUtils'
+import { LeaguesDataInterface, PlayerbaseDataInterface } from '../types/playerData'
 import playerbaseJson from './chart.json'
+import leaguesJson from './leagues.json'
 
-const playerbaseData = playerbaseJson.map((data) => {
-    const date = new Date(data.date)
+const playerbaseData: PlayerbaseDataInterface = playerbaseJson.map((data) => {
+    const date = convertDate(data.date)
 
     return {
         ...data,
-        date: date.toLocaleDateString('en-GB'),
+        ...(!data.twitchViewers && { twitchViewers: 0 }),
+        date,
     }
 })
 
-export { playerbaseData as PlayerbaseData }
+const leaguesData: LeaguesDataInterface = leaguesJson.map((data) => {
+    const start = convertDate(data.start)
+    const end = convertDate(data.end)
+
+    return {
+        ...data,
+        start,
+        end,
+    }
+})
+
+export { leaguesData as LeaguesData, playerbaseData as PlayerbaseData }
