@@ -7,8 +7,8 @@ import { splitLeaguesIntoDatasets } from '../../utils/dataUtils'
 
 const Playerbase = (): JSX.Element => {
     const [userData] = useState<ChartData<'line'>>({
-        labels: PlayerbaseData.map((data) => data.date),
-        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData),
+        labels: Array.from({ length: 100 }, (_, i) => i + 1),
+        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice(-1).reverse(),
     })
 
     const [viewerData] = useState<ChartData<'line'>>({
@@ -16,7 +16,7 @@ const Playerbase = (): JSX.Element => {
         datasets: [
             {
                 label: 'Twitch Viewers',
-                data: PlayerbaseData.map((data) => data.twitchViewers),
+                data: PlayerbaseData.map((data) => data.twitchViewers || null),
                 backgroundColor: '#9146ff',
             },
         ],
@@ -25,18 +25,37 @@ const Playerbase = (): JSX.Element => {
     const [options] = useState<ChartOptions<'line'>>({
         responsive: true,
         maintainAspectRatio: true,
-        aspectRatio: 3,
+        aspectRatio: 2,
         resizeDelay: 200,
+        animation: false,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        hover: {
+            mode: 'index',
+        },
         plugins: {
             colors: {
                 enabled: true,
             },
+            tooltip: {
+                yAlign: 'bottom',
+                // callbacks: {
+                //     label: (tooltipItem, data) => {
+                //         console.log(tooltipItem)
+                //         return 'what'
+                //     },
+                // },
+            },
         },
         scales: {
             x: {
-                grid: { color: '#0000001a' },
+                grid: { display: false },
             },
-            y: {},
+            y: {
+                grid: { color: '#666' },
+            },
         },
     })
 

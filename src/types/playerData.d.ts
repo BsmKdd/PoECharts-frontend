@@ -1,8 +1,11 @@
 interface OneDayData {
+    league?: string
+    day?: number
+    retention?: number
     date: string
     players: number
     averagePlayers?: number | string
-    twitchViewers: number
+    twitchViewers?: number
 }
 
 interface LeagueData {

@@ -1,7 +1,12 @@
 @use '../../styles/colors' as *;
 
 .chartContainer {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
+  background: $color-dark-3-blue;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
   aspect-ratio: 3/1;
 }

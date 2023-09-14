@@ -44,6 +44,19 @@ interface Props {
     chartOptions: ChartOptions<'bar' | 'line'>
 }
 
+Tooltip.positioners.myCustomPositioner = function (elements, eventPosition) {
+    // A reference to the tooltip model
+    const tooltip = this
+
+    /* ... */
+
+    return {
+        x: eventPosition.x,
+        y: 50,
+        // You may also include xAlign and yAlign to override those tooltip options.
+    }
+}
+
 const ChartContainer: React.FC<Props> = ({
     chartType,
     chartData,

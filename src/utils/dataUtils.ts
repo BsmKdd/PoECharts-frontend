@@ -7,17 +7,20 @@ export const splitLeaguesIntoDatasets = (
 ): ChartDataset<'line'>[] => {
     const datasets: ChartDataset<'line'>[] = []
 
-    return datasets
-    // [
-    //     {
-    //         label: 'Twitch Viewers',
-    //         data: playerbaseData.map((data) => data.twitchViewers),
-    //         backgroundColor: '#9146ff',
-    //     },
-    // ]
-}
+    for (const league of leaguesData) {
+        datasets.push({
+            label: league.name,
+            data: playerbaseData
+                .filter((oneDayData) => {
+                    return oneDayData.day && oneDayData.players && oneDayData.league == league.name
+                })
+                .map((oneDayData) => ({
+                    x: oneDayData.day,
+                    y: oneDayData.players,
+                }))
+                .slice(0, 100),
+        })
+    }
 
-export const convertDate = (date: string): string => {
-    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' } as const
-    return new Date(date).toLocaleDateString('en-GB', dateOptions)
+    return datasets
 }
