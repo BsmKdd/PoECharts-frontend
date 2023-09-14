@@ -8,7 +8,7 @@ import { splitLeaguesIntoDatasets } from '../../utils/dataUtils'
 const Playerbase = (): JSX.Element => {
     const [userData] = useState<ChartData<'line'>>({
         labels: Array.from({ length: 100 }, (_, i) => i + 1),
-        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice(-35).reverse(),
+        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice(4, 5).reverse(),
     })
 
     const [viewerData] = useState<ChartData<'line'>>({
@@ -27,7 +27,10 @@ const Playerbase = (): JSX.Element => {
         maintainAspectRatio: true,
         aspectRatio: 2,
         resizeDelay: 200,
-        animation: false,
+        animation: {
+            duration: 0,
+        },
+        spanGaps: false,
         interaction: {
             mode: 'index',
             intersect: false,
@@ -56,7 +59,7 @@ const Playerbase = (): JSX.Element => {
     return (
         <div className={styles.playerBaseContainer}>
             <ChartContainer chartType="line" chartData={userData} chartOptions={options} />
-            <ChartContainer chartType="line" chartData={viewerData} chartOptions={options} />
+            {/* <ChartContainer chartType="line" chartData={viewerData} chartOptions={options} /> */}
         </div>
     )
 }

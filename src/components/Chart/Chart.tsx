@@ -43,8 +43,9 @@ const ChartContainer: React.FC<Props> = ({
     useEffect(() => {
         const chart = chartRef.current
         if (chart) {
+            console.log('what')
             chart.options = !isObjectEmpty(chartOptions) ? chartOptions : {}
-            chart.update()
+            chart.update('none')
         }
     }, [chartOptions])
 

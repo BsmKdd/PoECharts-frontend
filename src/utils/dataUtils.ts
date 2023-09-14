@@ -11,15 +11,15 @@ export const splitLeaguesIntoDatasets = (
         datasets.push({
             label: league.name,
             data: playerbaseData
-                .map(
-                    (oneDayData) =>
-                        oneDayData.league == league.name && {
-                            x: oneDayData.day,
-                            y: oneDayData.players,
-                        },
-                )
-                .filter((oneDayData): oneDayData is { x: number; y: number } => !!oneDayData)
+                .filter((oneDayData) => oneDayData.league == league.name)
+                .map((oneDayData) => ({
+                    x: oneDayData.day ? oneDayData.day : NaN,
+                    y: oneDayData.players ? oneDayData.players : NaN,
+                }))
                 .slice(0, 100),
+            animation: {
+                duration: 0,
+            },
         })
     }
 
