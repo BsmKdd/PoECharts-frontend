@@ -1,6 +1,6 @@
 import { ChartData, ChartOptions } from 'chart.js'
 import { useState } from 'react'
-import { ChartContainer, ChartTypeEnum } from '../../components/Chart/Chart'
+import { ChartContainer } from '../../components/Chart/Chart'
 import { PlayerbaseData, LeaguesData } from '../../data/PlayerbaseData'
 import styles from './Playerbase.module.scss'
 import { splitLeaguesIntoDatasets } from '../../utils/dataUtils'
@@ -41,12 +41,6 @@ const Playerbase = (): JSX.Element => {
             },
             tooltip: {
                 yAlign: 'bottom',
-                callbacks: {
-                    title: (tooltipItem, data) => {
-                        console.log()
-                        return `Day ${tooltipItem[0].label}`
-                    },
-                },
             },
         },
         scales: {

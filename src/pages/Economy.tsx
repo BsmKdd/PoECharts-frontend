@@ -1,4 +1,4 @@
-import styles from './Economy.module.scss'
+// import styles from './Economy.module.scss'
 
 const Economy = (): JSX.Element => {
     return <>Economy</>

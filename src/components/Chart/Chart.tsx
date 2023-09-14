@@ -1,33 +1,29 @@
 import {
-    Chart as ChartJS,
     CategoryScale,
+    ChartData,
+    Chart as ChartJS,
+    ChartOptions,
+    Colors,
+    Legend,
+    LineElement,
     LinearScale,
-    BarElement,
+    PointElement,
     Title,
     Tooltip,
-    Legend,
-    PointElement,
-    LineElement,
-    Filler,
-    ArcElement,
-    Colors,
-    ChartData,
-    ChartOptions,
 } from 'chart.js'
+import { useEffect, useRef } from 'react'
 import { Chart } from 'react-chartjs-2'
 import styles from './Chart.module.scss'
+import { isObjectEmpty } from '../../utils/utils'
 
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    BarElement,
     Title,
     Tooltip,
     Legend,
     PointElement,
     LineElement,
-    Filler,
-    ArcElement,
     Colors,
 )
 
@@ -37,29 +33,26 @@ interface Props {
     chartOptions: ChartOptions<'bar' | 'line'>
 }
 
-// Tooltip.positioners.myCustomPositioner = function (elements, eventPosition) {
-//     // A reference to the tooltip model
-//     const tooltip = this
-
-//     /* ... */
-
-//     return {
-//         x: eventPosition.x,
-//         y: 50,
-//         // You may also include xAlign and yAlign to override those tooltip options.
-//     }
-// }
-
 const ChartContainer: React.FC<Props> = ({
     chartType,
     chartData,
     chartOptions,
 }: Props): JSX.Element => {
+    const chartRef = useRef<ChartJS>(null)
+
+    useEffect(() => {
+        const chart = chartRef.current
+        if (chart) {
+            chart.options = !isObjectEmpty(chartOptions) ? chartOptions : {}
+            chart.update()
+        }
+    }, [chartOptions])
+
     return (
         <div className={styles.chartContainer}>
             <Chart
+                ref={chartRef}
                 data={chartData as ChartData<'line' | 'bar' | 'pie' | 'doughnut'>}
-                options={chartOptions as ChartOptions<'line' | 'bar' | 'pie' | 'doughnut'>}
                 type={chartType}
             />
         </div>
