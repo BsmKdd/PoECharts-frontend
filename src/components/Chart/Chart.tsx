@@ -14,7 +14,7 @@ import {
     ChartData,
     ChartOptions,
 } from 'chart.js'
-import { Bar, Line, Pie, Doughnut } from 'react-chartjs-2'
+import { Chart } from 'react-chartjs-2'
 import styles from './Chart.module.scss'
 
 ChartJS.register(
@@ -31,64 +31,39 @@ ChartJS.register(
     Colors,
 )
 
-enum ChartTypeEnum {
-    bar = 'bar',
-    line = 'line',
-    pie = 'pie',
-    doughnut = 'doughnut',
-}
-
 interface Props {
-    chartType: ChartTypeEnum
+    chartType: 'line' | 'bar' | 'pie' | 'doughnut'
     chartData: ChartData<'bar' | 'line' | 'pie' | 'doughnut'>
     chartOptions: ChartOptions<'bar' | 'line'>
 }
 
-Tooltip.positioners.myCustomPositioner = function (elements, eventPosition) {
-    // A reference to the tooltip model
-    const tooltip = this
+// Tooltip.positioners.myCustomPositioner = function (elements, eventPosition) {
+//     // A reference to the tooltip model
+//     const tooltip = this
 
-    /* ... */
+//     /* ... */
 
-    return {
-        x: eventPosition.x,
-        y: 50,
-        // You may also include xAlign and yAlign to override those tooltip options.
-    }
-}
+//     return {
+//         x: eventPosition.x,
+//         y: 50,
+//         // You may also include xAlign and yAlign to override those tooltip options.
+//     }
+// }
 
 const ChartContainer: React.FC<Props> = ({
     chartType,
     chartData,
     chartOptions,
 }: Props): JSX.Element => {
-    let chart: JSX.Element
-
-    switch (chartType) {
-        case ChartTypeEnum.bar:
-            chart = (
-                <Bar
-                    data={chartData as ChartData<'bar'>}
-                    options={chartOptions as ChartOptions<'bar'>}
-                />
-            )
-            break
-        case ChartTypeEnum.line:
-            chart = (
-                <Line
-                    data={chartData as ChartData<'line'>}
-                    options={chartOptions as ChartOptions<'line'>}
-                />
-            )
-            break
-        case ChartTypeEnum.pie:
-            chart = <Pie data={chartData as ChartData<'pie'>} />
-            break
-        case ChartTypeEnum.doughnut:
-            chart = <Doughnut data={chartData as ChartData<'doughnut'>} />
-    }
-
-    return <div className={styles.chartContainer}>{chart}</div>
+    return (
+        <div className={styles.chartContainer}>
+            <Chart
+                data={chartData as ChartData<'line' | 'bar' | 'pie' | 'doughnut'>}
+                options={chartOptions as ChartOptions<'line' | 'bar' | 'pie' | 'doughnut'>}
+                type={chartType}
+            />
+        </div>
+    )
 }
 
-export { ChartTypeEnum, ChartContainer }
+export { ChartContainer }

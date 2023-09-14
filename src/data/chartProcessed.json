@@ -31633,15 +31633,19 @@
 	},
 	{
 		"league": "Ancestors",
+		"day": 22,
 		"retention": 43.38,
 		"date": "8th Sep 2023",
+		"players": 71935,
 		"averagePlayers": 52184,
 		"twitchViewers": 20507
 	},
 	{
 		"league": "Ancestors",
+		"day": 23,
 		"retention": 45.45,
 		"date": "9th Sep 2023",
+		"players": 75360,
 		"averagePlayers": 58134,
 		"twitchViewers": 19407
 	},

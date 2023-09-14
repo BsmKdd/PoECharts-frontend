@@ -8,7 +8,7 @@ import { splitLeaguesIntoDatasets } from '../../utils/dataUtils'
 const Playerbase = (): JSX.Element => {
     const [userData] = useState<ChartData<'line'>>({
         labels: Array.from({ length: 100 }, (_, i) => i + 1),
-        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice(-1).reverse(),
+        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice(-35).reverse(),
     })
 
     const [viewerData] = useState<ChartData<'line'>>({
@@ -41,12 +41,12 @@ const Playerbase = (): JSX.Element => {
             },
             tooltip: {
                 yAlign: 'bottom',
-                // callbacks: {
-                //     label: (tooltipItem, data) => {
-                //         console.log(tooltipItem)
-                //         return 'what'
-                //     },
-                // },
+                callbacks: {
+                    title: (tooltipItem, data) => {
+                        console.log()
+                        return `Day ${tooltipItem[0].label}`
+                    },
+                },
             },
         },
         scales: {
@@ -61,16 +61,8 @@ const Playerbase = (): JSX.Element => {
 
     return (
         <div className={styles.playerBaseContainer}>
-            <ChartContainer
-                chartType={ChartTypeEnum.line}
-                chartData={userData}
-                chartOptions={options}
-            />
-            <ChartContainer
-                chartType={ChartTypeEnum.line}
-                chartData={viewerData}
-                chartOptions={options}
-            />
+            <ChartContainer chartType="line" chartData={userData} chartOptions={options} />
+            <ChartContainer chartType="line" chartData={viewerData} chartOptions={options} />
         </div>
     )
 }
