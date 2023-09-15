@@ -8,7 +8,7 @@ import { splitLeaguesIntoDatasets } from '../../utils/dataUtils'
 const Playerbase = (): JSX.Element => {
     const [userData] = useState<ChartData<'line'>>({
         labels: Array.from({ length: 100 }, (_, i) => i + 1),
-        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice(4, 5).reverse(),
+        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice().reverse(),
     })
 
     const [viewerData] = useState<ChartData<'line'>>({
@@ -26,7 +26,7 @@ const Playerbase = (): JSX.Element => {
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 2,
-        resizeDelay: 200,
+        resizeDelay: 500,
         animation: {
             duration: 0,
         },
@@ -38,20 +38,20 @@ const Playerbase = (): JSX.Element => {
         hover: {
             mode: 'index',
         },
-        plugins: {
-            colors: {
-                enabled: true,
-            },
-            tooltip: {
-                yAlign: 'bottom',
-            },
-        },
         scales: {
             x: {
+                title: {
+                    display: true,
+                    text: 'Day',
+                },
                 grid: { display: false },
             },
             y: {
-                grid: { color: '#666' },
+                title: {
+                    display: true,
+                    text: 'Peak Concurrent Players',
+                },
+                grid: { display: true, color: '#666' },
             },
         },
     })

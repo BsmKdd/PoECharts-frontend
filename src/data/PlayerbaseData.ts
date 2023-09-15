@@ -1,4 +1,4 @@
-import { LeaguesDataInterface, PlayerbaseDataInterface } from '../types/playerData'
+import { LeaguesDataInterface, PlayerbaseDataInterface } from '../@types/playerData'
 import playerbaseJson from './chartProcessed.json'
 import leaguesJson from './leagues.json'
 

@@ -1,4 +1,4 @@
-import type { LeaguesDataInterface, PlayerbaseDataInterface } from '../types/playerData'
+import type { LeaguesDataInterface, PlayerbaseDataInterface } from '../@types/playerData'
 import { ChartDataset } from 'chart.js'
 
 export const splitLeaguesIntoDatasets = (
@@ -13,8 +13,8 @@ export const splitLeaguesIntoDatasets = (
             data: playerbaseData
                 .filter((oneDayData) => oneDayData.league == league.name)
                 .map((oneDayData) => ({
-                    x: oneDayData.day ? oneDayData.day : NaN,
-                    y: oneDayData.players ? oneDayData.players : NaN,
+                    x: oneDayData.day || NaN,
+                    y: oneDayData.players || NaN,
                 }))
                 .slice(0, 100),
             animation: {

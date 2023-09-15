@@ -21,3 +21,16 @@ main {
   margin: 6rem auto 0 auto;
   color: $color-light-3;
 }
+
+.chartjsTooltip {
+  opacity: 1;
+  background: $color-dark-4-trans;
+  white-space: pre;
+  z-index: 5;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+}

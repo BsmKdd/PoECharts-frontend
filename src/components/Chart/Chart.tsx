@@ -15,6 +15,7 @@ import { useEffect, useRef } from 'react'
 import { Chart } from 'react-chartjs-2'
 import styles from './Chart.module.scss'
 import { isObjectEmpty } from '../../utils/utils'
+import { externalTooltipHandler, LineOnHoverPlugin } from '../../utils/chartUtils'
 
 ChartJS.register(
     CategoryScale,
@@ -25,6 +26,7 @@ ChartJS.register(
     PointElement,
     LineElement,
     Colors,
+    LineOnHoverPlugin,
 )
 
 interface Props {
@@ -43,8 +45,16 @@ const ChartContainer: React.FC<Props> = ({
     useEffect(() => {
         const chart = chartRef.current
         if (chart) {
-            console.log('what')
-            chart.options = !isObjectEmpty(chartOptions) ? chartOptions : {}
+            chart.options = !isObjectEmpty(chartOptions)
+                ? {
+                      ...chartOptions,
+                      plugins: {
+                          colors: { enabled: true },
+                          tooltip: { enabled: false, external: externalTooltipHandler },
+                      },
+                  }
+                : {}
+
             chart.update('none')
         }
     }, [chartOptions])
