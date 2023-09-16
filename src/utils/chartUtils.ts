@@ -1,109 +1,104 @@
 import { Chart, TooltipModel } from 'chart.js'
 
-const getOrCreateTooltip = (chart: Chart) => {
-    if (!chart.canvas.parentNode) return
-    let tooltipEl = chart?.canvas?.parentNode.querySelector('div')
-
-    if (!tooltipEl) {
-        tooltipEl = document.createElement('div')
-        tooltipEl.style.position = 'absolute'
-
-        const table = document.createElement('table')
-
-        tooltipEl.appendChild(table)
-        chart.canvas.parentNode.appendChild(tooltipEl)
-    }
-
-    return tooltipEl
-}
-
 export const externalTooltipHandler = (context: {
     chart: Chart
     tooltip: TooltipModel<'line'>
 }) => {
     // Tooltip Element
-    const { chart, tooltip } = context
-    if (!chart) return
-    const tooltipEl = getOrCreateTooltip(chart)
-    if (!tooltipEl) return
-    tooltipEl.className = 'chartjsTooltip'
+    let tooltipEl = document.getElementById('chartjs-tooltip')
+
+    if (!tooltipEl) {
+        tooltipEl = document.createElement('div')
+        tooltipEl.id = 'chartjs-tooltip'
+        tooltipEl.innerHTML = '<table></table>'
+        tooltipEl.className = 'chartjsTooltip'
+        document.body.appendChild(tooltipEl)
+    }
 
     // Hide if no tooltip
-    if (tooltip.opacity === 0) {
+    const tooltipModel = context.tooltip
+    if (tooltipModel.opacity === 0) {
         tooltipEl.style.opacity = '0'
         return
     }
 
+    // Set caret Position
+    tooltipEl.classList.remove('above', 'below', 'no-transform')
+    if (tooltipModel.yAlign) {
+        tooltipEl.classList.add(tooltipModel.yAlign)
+    } else {
+        tooltipEl.classList.add('no-transform')
+    }
+
+    function getBody(bodyItem: { lines: string[] }) {
+        return bodyItem.lines
+    }
+
     // Set Text
-    if (tooltip.body) {
-        const titleLines = tooltip.title ? [`Day ${tooltip.title}`] : []
-        const bodyLines = tooltip.body.map((b) => b.lines)
+    if (tooltipModel.body) {
+        const titleLines = tooltipModel.title ? [`Day ${tooltipModel.title}`] : []
+        const bodyLines = tooltipModel.body.map(getBody)
 
-        const tableHead = document.createElement('thead')
+        let innerHtml = '<thead>'
 
-        titleLines.forEach((title) => {
-            const tr = document.createElement('tr')
-
-            const th = document.createElement('th')
-            const text = document.createTextNode(title)
-
-            th.appendChild(text)
-            tr.appendChild(th)
-            tableHead.appendChild(tr)
+        titleLines.forEach(function (title) {
+            innerHtml += '<tr><th>' + title + '</th></tr>'
         })
 
-        console.log(chart)
+        innerHtml += '</thead><tbody>'
 
-        const tableBody = document.createElement('tbody')
-        bodyLines.forEach((body, i) => {
-            const colors = tooltip.labelColors[i]
+        const rowsPerCol = 10
+        for (let i = 0; i < rowsPerCol; i++) {
             // row will have 2 columns, left has image and label, right has number
-            const tr = document.createElement('tr')
-            tr.style.backgroundColor = 'inherit'
+            let row = '<tr>'
 
-            const tdLeft = document.createElement('td')
-            tdLeft.style.color = colors.backgroundColor.toString()
+            for (let j = i; j < bodyLines.length; j += rowsPerCol) {
+                const body = bodyLines[j]
 
-            const img = document.createElement('img')
-            img.src = './caterm.gif'
-            tdLeft.appendChild(img)
+                const colors = tooltipModel.labelColors[j]
+                let style = 'color:' + colors.backgroundColor
+                style += '; border-width: 2px'
 
-            const labelText = body[0].split(':')[0]
-            const labelNode = document.createTextNode(labelText)
-            tdLeft.appendChild(labelNode)
+                const colLeft = `<td style='${style}'>|<img src='${'./src/assets/huh.gif'}'/>${
+                    body[0].split(':')[0]
+                }</td>`
+                const colRight = `<td style='${style}'>${body[0].split(':')[1]}</td>`
 
-            const tdRight = document.createElement('td')
-            tdRight.style.color = colors.backgroundColor.toString()
-            const labelData = body[0].split(':')[1]
-            const numberNode = document.createTextNode(labelData)
-            tdRight.appendChild(numberNode)
+                row += colLeft + colRight
+            }
 
-            tr.appendChild(tdLeft)
-            tr.appendChild(tdRight)
+            row += '</tr>'
+            innerHtml += row
+        }
 
-            tableBody.appendChild(tr)
-        })
+        innerHtml += '</tbody>'
 
         const tableRoot = tooltipEl.querySelector('table')
         if (!tableRoot) return
-
-        // Remove old children
-        while (tableRoot.firstChild) {
-            tableRoot.firstChild.remove()
-        }
-
-        // Add new children
-        tableRoot.appendChild(tableHead)
-        tableRoot.appendChild(tableBody)
+        tableRoot.innerHTML = innerHtml
     }
 
-    const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas
+    const position = context.chart.canvas.getBoundingClientRect()
 
     // Display, position, and set styles for font
     tooltipEl.style.opacity = '1'
-    tooltipEl.style.left = positionX + tooltip.caretX + 150 + 'px'
-    tooltipEl.style.top = positionY + 250 + 'px'
-    tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px'
+    tooltipEl.style.position = 'absolute'
+
+    const xPosition = position.left + window.scrollX + tooltipModel.caretX
+    tooltipEl.style.left =
+        tooltipEl.clientWidth + tooltipModel.caretX > context.chart.canvas.width
+            ? xPosition - tooltipEl.clientWidth + 'px'
+            : xPosition + 'px'
+
+    const yPosition = position.top + window.scrollY + tooltipModel.caretY
+    tooltipEl.style.top =
+        tooltipEl.clientHeight > tooltipModel.caretY + 2000
+            ? yPosition + 'px'
+            : yPosition - tooltipEl.clientHeight + 'px'
+
+    console.log(tooltipEl.clientHeight, tooltipModel.caretY, context.chart.canvas.height)
+
+    tooltipEl.style.pointerEvents = 'none'
 }
 
 export const LineOnHoverPlugin = {

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import logo from '../../../assets/caterm.gif'
+import logo from '../../../assets/veryCat.gif'
 import NavLinkItem from '../NavLinkItem/NavLinkItem'
 import styles from './NavLinks.module.scss'
 

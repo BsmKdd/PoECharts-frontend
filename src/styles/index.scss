@@ -27,10 +27,16 @@ main {
   background: $color-dark-4-trans;
   white-space: pre;
   z-index: 5;
+  padding: 8px;
+  border-radius: 8px;
 
-  img {
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
+  tbody {
+    td {
+      img {
+        width: 16px;
+        height: 16px;
+        margin: 0 8px;
+      }
+    }
   }
 }
