@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom'
-import logo from '../../../assets/veryCat.gif'
-import NavLinkItem from '../NavLinkItem/NavLinkItem'
-import styles from './NavLinks.module.scss'
+import { NavLink } from 'react-router-dom';
+import logo from '../../../assets/veryCat.gif';
+import NavLinkItem from '../NavLinkItem/NavLinkItem';
+import styles from './NavLinks.module.scss';
 
 const NavLinks = (): JSX.Element => {
     return (
@@ -14,6 +14,6 @@ const NavLinks = (): JSX.Element => {
                 <NavLinkItem to="/economy">Economy</NavLinkItem>
             </ul>
         </div>
-    )
-}
-export default NavLinks
+    );
+};
+export default NavLinks;

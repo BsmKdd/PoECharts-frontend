@@ -1,7 +1,7 @@
 // import styles from './Economy.module.scss'
 
 const Economy = (): JSX.Element => {
-    return <>Economy</>
-}
+    return <>Economy</>;
+};
 
-export default Economy
+export default Economy;

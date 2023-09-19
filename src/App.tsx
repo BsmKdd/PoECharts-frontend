@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Navigation from './components/Navigation/Navigation'
-import Playerbase from './pages/Playerbase/Playerbase'
-import Economy from './pages/Economy'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Navigation from './components/Navigation/Navigation';
+import Playerbase from './pages/Playerbase/Playerbase';
+import Economy from './pages/Economy';
 
 function App() {
     return (
@@ -16,7 +16,7 @@ function App() {
                 </Routes>
             </main>
         </BrowserRouter>
-    )
+    );
 }
 
-export default App
+export default App;

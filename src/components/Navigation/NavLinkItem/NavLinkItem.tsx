@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom'
-import styles from './NavLinkItem.module.scss'
+import { NavLink } from 'react-router-dom';
+import styles from './NavLinkItem.module.scss';
 
 interface Props {
     to: string
@@ -13,7 +13,7 @@ const NavLinkItem = ({ to, children }: Props): JSX.Element => {
                 {children}
             </NavLink>
         </li>
-    )
-}
+    );
+};
 
-export default NavLinkItem
+export default NavLinkItem;

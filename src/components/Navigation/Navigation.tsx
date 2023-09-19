@@ -1,6 +1,6 @@
-import NavLinks from './NavLinks/NavLinks'
+import NavLinks from './NavLinks/NavLinks';
 // import styles from './Navigation.module.scss'
-import NavigationHeader from './NavigationHeader/NavigationHeader'
+import NavigationHeader from './NavigationHeader/NavigationHeader';
 
 const Navigation = (): JSX.Element => {
     return (
@@ -10,7 +10,7 @@ const Navigation = (): JSX.Element => {
                 <NavLinks />
             </NavigationHeader>
         </>
-    )
-}
+    );
+};
 
-export default Navigation
+export default Navigation;

@@ -25,4 +25,4 @@ export type {
     OneDayData as OneDayDataInterface,
     PlayerbaseData as PlayerbaseDataInterface,
     LeaguesData as LeaguesDataInterface,
-}
+};

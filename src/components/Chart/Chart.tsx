@@ -10,12 +10,12 @@ import {
     PointElement,
     Title,
     Tooltip,
-} from 'chart.js'
-import { useEffect, useRef } from 'react'
-import { Chart } from 'react-chartjs-2'
-import styles from './Chart.module.scss'
-import { isObjectEmpty } from '../../utils/utils'
-import { externalTooltipHandler, LineOnHoverPlugin } from '../../utils/chartUtils'
+} from 'chart.js';
+import { useEffect, useRef } from 'react';
+import { Chart } from 'react-chartjs-2';
+import styles from './Chart.module.scss';
+import { isObjectEmpty } from '../../utils/utils';
+import { externalTooltipHandler, LineOnHoverPlugin } from '../../utils/chartUtils';
 
 ChartJS.register(
     CategoryScale,
@@ -27,12 +27,12 @@ ChartJS.register(
     LineElement,
     Colors,
     LineOnHoverPlugin,
-)
+);
 
 interface Props {
-    chartType: 'line' | 'bar' | 'pie' | 'doughnut'
-    chartData: ChartData<'bar' | 'line' | 'pie' | 'doughnut'>
-    chartOptions: ChartOptions<'bar' | 'line'>
+    chartType: 'line' | 'bar' | 'pie' | 'doughnut';
+    chartData: ChartData<'bar' | 'line' | 'pie' | 'doughnut'>;
+    chartOptions: ChartOptions<'bar' | 'line'>;
 }
 
 const ChartContainer: React.FC<Props> = ({
@@ -40,10 +40,10 @@ const ChartContainer: React.FC<Props> = ({
     chartData,
     chartOptions,
 }: Props): JSX.Element => {
-    const chartRef = useRef<ChartJS>(null)
+    const chartRef = useRef<ChartJS>(null);
 
     useEffect(() => {
-        const chart = chartRef.current
+        const chart = chartRef.current;
         if (chart) {
             chart.options = !isObjectEmpty(chartOptions)
                 ? {
@@ -53,11 +53,11 @@ const ChartContainer: React.FC<Props> = ({
                           tooltip: { enabled: false, external: externalTooltipHandler },
                       },
                   }
-                : {}
+                : {};
 
-            chart.update('none')
+            chart.update('none');
         }
-    }, [chartOptions])
+    }, [chartOptions]);
 
     return (
         <div className={styles.chartContainer}>
@@ -67,7 +67,7 @@ const ChartContainer: React.FC<Props> = ({
                 type={chartType}
             />
         </div>
-    )
-}
+    );
+};
 
-export { ChartContainer }
+export { ChartContainer };

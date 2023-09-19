@@ -1,11 +1,11 @@
-import type { LeaguesDataInterface, PlayerbaseDataInterface } from '../@types/playerData'
-import { ChartDataset } from 'chart.js'
+import type { LeaguesDataInterface, PlayerbaseDataInterface } from '../@types/playerData';
+import { ChartDataset } from 'chart.js';
 
 export const splitLeaguesIntoDatasets = (
     leaguesData: LeaguesDataInterface,
     playerbaseData: PlayerbaseDataInterface,
 ): ChartDataset<'line'>[] => {
-    const datasets: ChartDataset<'line'>[] = []
+    const datasets: ChartDataset<'line'>[] = [];
 
     for (const league of leaguesData) {
         datasets.push({
@@ -20,8 +20,8 @@ export const splitLeaguesIntoDatasets = (
             animation: {
                 duration: 0,
             },
-        })
+        });
     }
 
-    return datasets
-}
+    return datasets;
+};

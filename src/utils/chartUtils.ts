@@ -1,123 +1,122 @@
-import { Chart, TooltipModel } from 'chart.js'
+import { Chart, TooltipModel } from 'chart.js';
 
 export const externalTooltipHandler = (context: {
-    chart: Chart
-    tooltip: TooltipModel<'line'>
+    chart: Chart;
+    tooltip: TooltipModel<'line'>;
 }) => {
     // Tooltip Element
-    let tooltipEl = document.getElementById('chartjs-tooltip')
+    let tooltipEl = document.getElementById('chartjs-tooltip');
 
     if (!tooltipEl) {
-        tooltipEl = document.createElement('div')
-        tooltipEl.id = 'chartjs-tooltip'
-        tooltipEl.innerHTML = '<table></table>'
-        tooltipEl.className = 'chartjsTooltip'
-        document.body.appendChild(tooltipEl)
+        tooltipEl = document.createElement('div');
+        tooltipEl.id = 'chartjs-tooltip';
+        tooltipEl.innerHTML = '<table></table>';
+        tooltipEl.className = 'chartjsTooltip';
+        document.body.appendChild(tooltipEl);
     }
 
     // Hide if no tooltip
-    const tooltipModel = context.tooltip
+    const tooltipModel = context.tooltip;
     if (tooltipModel.opacity === 0) {
-        tooltipEl.style.opacity = '0'
-        return
+        tooltipEl.style.opacity = '0';
+        return;
     }
 
     // Set caret Position
-    tooltipEl.classList.remove('above', 'below', 'no-transform')
+    tooltipEl.classList.remove('above', 'below', 'no-transform');
     if (tooltipModel.yAlign) {
-        tooltipEl.classList.add(tooltipModel.yAlign)
+        tooltipEl.classList.add(tooltipModel.yAlign);
     } else {
-        tooltipEl.classList.add('no-transform')
+        tooltipEl.classList.add('no-transform');
     }
 
     function getBody(bodyItem: { lines: string[] }) {
-        return bodyItem.lines
+        return bodyItem.lines;
     }
 
     // Set Text
     if (tooltipModel.body) {
-        const titleLines = tooltipModel.title ? [`Day ${tooltipModel.title}`] : []
-        const bodyLines = tooltipModel.body.map(getBody)
+        const titleLines = tooltipModel.title ? [`Day ${tooltipModel.title}`] : [];
+        const bodyLines = tooltipModel.body.map(getBody);
 
-        let innerHtml = '<thead>'
+        let innerHtml = '<thead>';
 
         titleLines.forEach(function (title) {
-            innerHtml += '<tr><th>' + title + '</th></tr>'
-        })
+            innerHtml += '<tr><th>' + title + '</th></tr>';
+        });
 
-        innerHtml += '</thead><tbody>'
+        innerHtml += '</thead><tbody>';
 
-        const rowsPerCol = 10
+        const rowsPerCol = 12;
         for (let i = 0; i < rowsPerCol; i++) {
-            // row will have 2 columns, left has image and label, right has number
-            let row = '<tr>'
+            let row = '<tr>';
 
             for (let j = i; j < bodyLines.length; j += rowsPerCol) {
-                const body = bodyLines[j]
+                const body = bodyLines[j];
 
-                const colors = tooltipModel.labelColors[j]
-                let style = 'color:' + colors.backgroundColor
-                style += '; border-width: 2px'
+                const colors = tooltipModel.labelColors[j];
+                let style = 'color:' + colors.backgroundColor;
+                style += '; border-width: 2px';
 
-                const colLeft = `<td style='${style}'>|<img src='${'./src/assets/huh.gif'}'/>${
+                const colLeft = `<td style='${style}'><img src='${'./src/assets/huh.gif'}'/>${
                     body[0].split(':')[0]
-                }</td>`
-                const colRight = `<td style='${style}'>${body[0].split(':')[1]}</td>`
+                }</td>`;
+                const colRight = `<td style='${style}'>${body[0].split(':')[1]}</td>`;
 
-                row += colLeft + colRight
+                row += colLeft + colRight;
             }
 
-            row += '</tr>'
-            innerHtml += row
+            row += '</tr>';
+            innerHtml += row;
         }
 
-        innerHtml += '</tbody>'
+        innerHtml += '</tbody>';
 
-        const tableRoot = tooltipEl.querySelector('table')
-        if (!tableRoot) return
-        tableRoot.innerHTML = innerHtml
+        const tableRoot = tooltipEl.querySelector('table');
+        if (!tableRoot) return;
+        tableRoot.innerHTML = innerHtml;
     }
 
-    const position = context.chart.canvas.getBoundingClientRect()
+    const position = context.chart.canvas.getBoundingClientRect();
 
     // Display, position, and set styles for font
-    tooltipEl.style.opacity = '1'
-    tooltipEl.style.position = 'absolute'
+    tooltipEl.style.opacity = '1';
+    tooltipEl.style.position = 'absolute';
 
-    const xPosition = position.left + window.scrollX + tooltipModel.caretX
+    const xPosition = position.left + window.scrollX + tooltipModel.caretX;
     tooltipEl.style.left =
         tooltipEl.clientWidth + tooltipModel.caretX > context.chart.canvas.width
             ? xPosition - tooltipEl.clientWidth + 'px'
-            : xPosition + 'px'
+            : xPosition + 'px';
 
-    const yPosition = position.top + window.scrollY + tooltipModel.caretY
+    const yPosition = position.top + window.scrollY + tooltipModel.caretY;
     tooltipEl.style.top =
         tooltipEl.clientHeight > tooltipModel.caretY + 2000
             ? yPosition + 'px'
-            : yPosition - tooltipEl.clientHeight + 'px'
+            : yPosition - tooltipEl.clientHeight + 'px';
 
-    console.log(tooltipEl.clientHeight, tooltipModel.caretY, context.chart.canvas.height)
+    console.log(tooltipEl.clientHeight, tooltipModel.caretY, context.chart.canvas.height);
 
-    tooltipEl.style.pointerEvents = 'none'
-}
+    tooltipEl.style.pointerEvents = 'none';
+};
 
 export const LineOnHoverPlugin = {
     id: 'corsair',
     afterDraw: (chart: Chart) => {
-        const activeEle = chart.getActiveElements()
-        if (activeEle.length <= 0) return
-        const { ctx, scales } = chart
-        const { x } = activeEle[0].element
-        const topY = scales.y.top
-        const bottomY = scales.y.bottom
-        ctx.save()
-        ctx.setLineDash([5, 5])
-        ctx.beginPath()
-        ctx.moveTo(x, topY)
-        ctx.lineTo(x, bottomY)
-        ctx.lineWidth = 1
-        ctx.strokeStyle = '#666'
-        ctx.stroke()
-        ctx.restore()
+        const activeEle = chart.getActiveElements();
+        if (activeEle.length <= 0) return;
+        const { ctx, scales } = chart;
+        const { x } = activeEle[0].element;
+        const topY = scales.y.top;
+        const bottomY = scales.y.bottom;
+        ctx.save();
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.moveTo(x, topY);
+        ctx.lineTo(x, bottomY);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#666';
+        ctx.stroke();
+        ctx.restore();
     },
-}
+};
