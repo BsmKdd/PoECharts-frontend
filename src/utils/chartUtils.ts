@@ -95,8 +95,6 @@ export const externalTooltipHandler = (context: {
             ? yPosition + 'px'
             : yPosition - tooltipEl.clientHeight + 'px';
 
-    console.log(tooltipEl.clientHeight, tooltipModel.caretY, context.chart.canvas.height);
-
     tooltipEl.style.pointerEvents = 'none';
 };
 

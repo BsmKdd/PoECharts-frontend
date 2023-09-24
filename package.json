@@ -13,6 +13,7 @@
 		"@types/csv-parse": "^1.2.2",
 		"@types/node": "^20.6.0",
 		"@types/react-router-dom": "^5.3.3",
+		"axios": "^1.5.0",
 		"chart.js": "^4.4.0",
 		"csv-parse": "^5.5.0",
 		"eslint-config-prettier": "^9.0.0",

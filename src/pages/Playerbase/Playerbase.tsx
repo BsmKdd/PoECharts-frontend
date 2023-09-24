@@ -1,26 +1,31 @@
 import { ChartData, ChartOptions } from 'chart.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChartContainer } from '../../components/Chart/Chart';
-import { PlayerbaseData, LeaguesData } from '../../data/PlayerbaseData';
 import styles from './Playerbase.module.scss';
 import { splitLeaguesIntoDatasets } from '../../utils/dataUtils';
+import poeAxios from '../../api/config';
 
 const Playerbase = (): JSX.Element => {
-    const [userData] = useState<ChartData<'line'>>({
+    const [userData, setUserData] = useState<ChartData<'line'> | null>({
         labels: Array.from({ length: 100 }, (_, i) => i + 1),
-        datasets: splitLeaguesIntoDatasets(LeaguesData, PlayerbaseData).slice().reverse(),
+        datasets: [],
     });
 
-    // const [viewerData] = useState<ChartData<'line'>>({
-    //     labels: PlayerbaseData.map((data) => data.date),
-    //     datasets: [
-    //         {
-    //             label: 'Twitch Viewers',
-    //             data: PlayerbaseData.map((data) => data.twitchViewers || null),
-    //             backgroundColor: '#9146ff',
-    //         },
-    //     ],
-    // });
+    useEffect(() => {
+        const fetchLeagues = async () => {
+            const playerNumbersData = (await poeAxios.get('/playerNumbers')).data;
+            const leaguesData = (await poeAxios.get('/leagues')).data;
+
+            console.log(playerNumbersData);
+
+            setUserData({
+                labels: Array.from({ length: 100 }, (_, i) => i + 1),
+                datasets: splitLeaguesIntoDatasets(leaguesData, playerNumbersData).slice(5),
+            });
+        };
+
+        fetchLeagues();
+    }, []);
 
     const [options] = useState<ChartOptions<'line'>>({
         responsive: true,
