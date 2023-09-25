@@ -1,7 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const poeAxios = axios.create({
-    baseURL: 'http://localhost:5000/api/poe',
-});
+export default axios;
 
-export default poeAxios;
+export const sendAxiosRequest = async <R = undefined, T = undefined>(input: {
+    method: 'get' | 'post' | 'put' | 'patch' | 'delete';
+    url: string;
+    data?: T;
+    config?: AxiosRequestConfig<T>;
+}) => {
+    const { method, url, config, data } = input;
+
+    if (method === 'get') return axios.get<T, AxiosResponse<R>>(url, config);
+    return axios[method]<T, AxiosResponse<R>>(url, data, config);
+};

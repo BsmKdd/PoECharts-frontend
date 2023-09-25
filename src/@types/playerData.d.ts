@@ -1,28 +1,28 @@
-interface OneDayData {
-    league?: string
-    day?: number
-    retention?: number
-    date: string
-    players: number
-    averagePlayers?: number | string
-    twitchViewers?: number
+interface OneDayNumbers {
+    league?: string;
+    day?: number;
+    retention?: number;
+    date: string;
+    players: number;
+    averagePlayers?: number | string;
+    twitchViewers?: number;
 }
 
-interface LeagueData {
-    version: string
-    expansion?: string
-    league: string
-    name: string
-    start: string
-    end?: string
+interface League {
+    version: string;
+    expansion?: string;
+    league: string;
+    name: string;
+    start: string;
+    end?: string;
 }
 
-type PlayerbaseData = OneDayData[]
-type LeaguesData = LeagueData[]
+type PlayerNumbers = OneDayData[];
+type Leagues = League[];
 
 export type {
-    LeagueData as LeagueDataInterface,
-    OneDayData as OneDayDataInterface,
-    PlayerbaseData as PlayerbaseDataInterface,
-    LeaguesData as LeaguesDataInterface,
+    OneDayNumbers as OneDayNumbersInterface,
+    PlayerNumbers as PlayerNumbersInterface,
+    League as LeagueInterface,
+    Leagues as LeaguesInterface,
 };

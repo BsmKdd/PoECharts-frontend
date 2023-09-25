@@ -1,8 +1,8 @@
-import { LeaguesDataInterface, PlayerbaseDataInterface } from '../@types/playerData';
+import { LeaguesInterface, PlayerNumbersInterface } from '../@types/playerData';
 import playerbaseJson from './chartProcessed.json';
 import leaguesJson from './leagues.json';
 
-const playerbaseData: PlayerbaseDataInterface = playerbaseJson.map((data) => {
+const playerNumbersData: PlayerNumbersInterface = playerbaseJson.map((data) => {
     const date = data.date;
 
     return {
@@ -11,7 +11,7 @@ const playerbaseData: PlayerbaseDataInterface = playerbaseJson.map((data) => {
     };
 });
 
-const leaguesData: LeaguesDataInterface = leaguesJson.map((data) => {
+const leaguesData: LeaguesInterface = leaguesJson.map((data) => {
     const start = data.start;
     const end = data.end;
 
@@ -22,4 +22,4 @@ const leaguesData: LeaguesDataInterface = leaguesJson.map((data) => {
     };
 });
 
-export { leaguesData as LeaguesData, playerbaseData as PlayerbaseData };
+export { leaguesData as LeaguesData, playerNumbersData as PlayerNumbersData };

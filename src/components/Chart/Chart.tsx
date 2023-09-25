@@ -34,12 +34,14 @@ interface Props {
     chartType: 'line' | 'bar' | 'pie' | 'doughnut';
     chartData: ChartData<'bar' | 'line' | 'pie' | 'doughnut'> | null;
     chartOptions: ChartOptions<'bar' | 'line'>;
+    errorMessage?: string;
 }
 
 const ChartContainer: React.FC<Props> = ({
     chartType,
     chartData,
     chartOptions,
+    errorMessage,
 }: Props): JSX.Element => {
     const chartRef = useRef<ChartJS>(null);
 
@@ -62,7 +64,8 @@ const ChartContainer: React.FC<Props> = ({
 
     return (
         <div className={styles.chartContainer}>
-            {chartData?.datasets.length === 0 && <Spinner />}
+            {chartData?.datasets.length === 0 && !errorMessage && <Spinner />}
+            {errorMessage}
             <Chart
                 ref={chartRef}
                 data={chartData as ChartData<'line' | 'bar' | 'pie' | 'doughnut'>}

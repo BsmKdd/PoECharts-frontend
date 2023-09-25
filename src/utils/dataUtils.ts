@@ -1,9 +1,9 @@
-import type { LeaguesDataInterface, PlayerbaseDataInterface } from '../@types/playerData';
+import type { LeaguesInterface, PlayerNumbersInterface } from '../@types/playerData';
 import { ChartDataset } from 'chart.js';
 
 export const splitLeaguesIntoDatasets = (
-    leaguesData: LeaguesDataInterface,
-    playerbaseData: PlayerbaseDataInterface,
+    leaguesData: LeaguesInterface,
+    playerbaseData: PlayerNumbersInterface,
 ): ChartDataset<'line'>[] => {
     const datasets: ChartDataset<'line'>[] = [];
 
