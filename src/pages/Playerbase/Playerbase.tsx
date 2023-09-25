@@ -15,10 +15,10 @@ const Playerbase = (): JSX.Element => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const playerNumbersResponse = await getPlayerNumbers();
             const leaguesResponse = await getLeagues();
+            const playerNumbersResponse = await getPlayerNumbers();
 
-            if (playerNumbersResponse.data && leaguesResponse.data) {
+            if (leaguesResponse.data && playerNumbersResponse.data) {
                 setUserData({
                     labels: Array.from({ length: 100 }, (_, i) => i + 1),
                     datasets: splitLeaguesIntoDatasets(
@@ -27,7 +27,9 @@ const Playerbase = (): JSX.Element => {
                     ).slice(5),
                 });
             } else {
-                setErrorFetchingData(leaguesResponse.errorMessage || leaguesResponse.errorMessage);
+                setErrorFetchingData(
+                    leaguesResponse.errorMessage || playerNumbersResponse.errorMessage,
+                );
             }
         };
 
