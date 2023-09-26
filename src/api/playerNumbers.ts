@@ -11,8 +11,6 @@ interface getPlayerNumbersResponse {
 }
 
 export const getPlayerNumbers = async (): Promise<getPlayerNumbersResponse> => {
-    console.log(import.meta.env);
-
     const url = `${baseUrl}/playernumbers`;
     try {
         const response = await sendAxiosRequest<PlayerNumbersInterface>({ method: 'get', url });
