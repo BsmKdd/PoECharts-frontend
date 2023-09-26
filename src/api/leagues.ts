@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { LeaguesInterface } from '../@types/playerData';
-import { sendAxiosRequest } from './config';
+import { sendAxiosRequest } from './axiosConfig';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
